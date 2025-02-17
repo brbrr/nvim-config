@@ -1,5 +1,4 @@
 return {
-
   -- { -- Highlight, edit, and navigate code
   --   'nvim-treesitter/nvim-treesitter',
   --   build = ':TSUpdate',
@@ -52,6 +51,7 @@ return {
     opts = {
       highlight = { enable = true },
       indent = { enable = true },
+      auto_install = true,
       ensure_installed = {
         'bash',
         'c',
@@ -77,6 +77,8 @@ return {
         'vimdoc',
         'xml',
         'yaml',
+        'vue',
+        'css',
       },
       incremental_selection = {
         enable = true,
@@ -99,32 +101,51 @@ return {
     },
     ---@param opts TSConfig
     config = function(_, opts)
-      -- if type(opts.ensure_installed) == "table" then
-      --   opts.ensure_installed = LazyVim.dedup(opts.ensure_installed)
-      -- end
+      local brhelp = require 'brbrr.brhelp'
+      if type(opts.ensure_installed) == 'table' then
+        opts.ensure_installed = brhelp.dedup(opts.ensure_installed)
+      end
       require('nvim-treesitter.configs').setup(opts)
     end,
   },
 
+  -- {
+  --   'nvim-treesitter/nvim-treesitter-context',
+  --   opts = {
+  --     multiline_threshold = 5,
+  --   },
+  -- },
+
   {
     'nvim-treesitter/nvim-treesitter-context',
-    opts = {
-      multiline_threshold = 5,
-    },
+    -- event = 'LazyFile',
+    opts = function()
+      local tsc = require 'treesitter-context'
+      -- Snacks.toggle({
+      --   name = 'Treesitter Context',
+      --   get = tsc.enabled,
+      --   set = function(state)
+      --     if state then
+      --       tsc.enable()
+      --     else
+      --       tsc.disable()
+      --     end
+      --   end,
+      -- }):map '<leader>ut'
+      return { mode = 'cursor', max_lines = 3 }
+    end,
   },
-  -- { 'nvim-treesitter/nvim-treesitter-textobjects', opts = {} },
+
+  -- { 'nvim-treesitter/nvim-treesitter-textobjects' },
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
     event = 'VeryLazy',
     enabled = true,
     config = function()
       -- If treesitter is already loaded, we need to run config again for textobjects
-      local is_treesitter_loaded = pcall(require, 'nvim-treesitter')
-      if is_treesitter_loaded then
-        -- if LazyVim.is_loaded("nvim-treesitter") then
-        -- local opts = LazyVim.opts 'nvim-treesitter'
+      if BrHelp.is_loaded 'nvim-treesitter' then
+        local opts = BrHelp.opts 'nvim-treesitter'
 
-        local opts = require('lazy.core.config').plugins['nvim-treesitter'].opts
         require('nvim-treesitter.configs').setup { textobjects = opts.textobjects }
       end
 
@@ -149,5 +170,10 @@ return {
         end
       end
     end,
+  },
+
+  {
+    'windwp/nvim-ts-autotag',
+    opts = {},
   },
 }

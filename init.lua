@@ -1,93 +1,97 @@
 vim.cmd 'language en_US'
 
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+require 'brbrr'
 
--- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = true
--- Autoformat
-vim.g.autoformat = true
--- [[ Setting options ]]
--- See `:help vim.opt`
--- NOTE: You can change these options as you wish!
---  For more options, you can see `:help option-list`
-
--- Make line numbers default
-vim.opt.number = true
--- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
-vim.opt.relativenumber = true
-
--- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = 'a'
-
--- Don't show the mode, since it's already in the status line
-vim.opt.showmode = false
-
--- Sync clipboard between OS and Neovim.
---  Schedule the setting after `UiEnter` because it can increase startup-time.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
-vim.schedule(function()
-  vim.opt.clipboard = 'unnamedplus'
-end)
-
--- Enable break indent
-vim.opt.breakindent = true
-
--- Save undo history
-vim.opt.undofile = true
-
--- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-
--- Keep signcolumn on by default
-vim.opt.signcolumn = 'yes'
-
-vim.opt.smartindent = true
-
-vim.opt.scrolloff = 8
-
-vim.opt.colorcolumn = '80'
-
--- Decrease update time
-vim.opt.updatetime = 250
-
--- Decrease mapped sequence wait time
--- Displays which-key popup sooner
-vim.opt.timeoutlen = 300
-
--- Configure how new splits should be opened
-vim.opt.splitright = true
-vim.opt.splitbelow = true
-
--- Sets how neovim will display certain whitespace characters in the editor.
---  See `:help 'list'`
---  and `:help 'listchars'`
-vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
-
--- Preview substitutions live, as you type!
-vim.opt.inccommand = 'split'
-
--- Show which line your cursor is on
-vim.opt.cursorline = true
-
--- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
-
--- Set fold method to 'expr'
-vim.opt.foldmethod = 'expr'
-
--- Set fold expression using Treesitter
-vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-vim.opt.foldlevel = 99
-vim.opt.foldtext = ''
-
+-- -- Set <space> as the leader key
+-- -- See `:help mapleader`
+-- --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
+-- vim.g.mapleader = ' '
+-- vim.g.maplocalleader = ' '
+--
+-- -- Set to true if you have a Nerd Font installed and selected in the terminal
+-- vim.g.have_nerd_font = true
+-- -- Autoformat
+-- vim.g.autoformat = true
+-- -- [[ Setting options ]]
+-- -- See `:help vim.opt`
+-- -- NOTE: You can change these options as you wish!
+-- --  For more options, you can see `:help option-list`
+--
+-- -- Make line numbers default
+-- vim.opt.number = true
+-- -- You can also add relative line numbers, to help with jumping.
+-- --  Experiment for yourself to see if you like it!
+-- vim.opt.relativenumber = true
+--
+-- -- Enable mouse mode, can be useful for resizing splits for example!
+-- vim.opt.mouse = 'a'
+--
+-- -- Don't show the mode, since it's already in the status line
+-- vim.opt.showmode = false
+--
+-- vim.opt.cmdheight = 0
+--
+-- -- Sync clipboard between OS and Neovim.
+-- --  Schedule the setting after `UiEnter` because it can increase startup-time.
+-- --  Remove this option if you want your OS clipboard to remain independent.
+-- --  See `:help 'clipboard'`
+-- vim.schedule(function()
+--   vim.opt.clipboard = 'unnamedplus'
+-- end)
+--
+-- -- Enable break indent
+-- vim.opt.breakindent = true
+--
+-- -- Save undo history
+-- vim.opt.undofile = true
+--
+-- -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
+-- vim.opt.ignorecase = true
+-- vim.opt.smartcase = true
+--
+-- -- Keep signcolumn on by default
+-- vim.opt.signcolumn = 'yes'
+--
+-- vim.opt.smartindent = true
+--
+-- vim.opt.scrolloff = 8
+--
+-- vim.opt.colorcolumn = '80'
+--
+-- -- Decrease update time
+-- vim.opt.updatetime = 250
+--
+-- -- Decrease mapped sequence wait time
+-- -- Displays which-key popup sooner
+-- vim.opt.timeoutlen = 300
+--
+-- -- Configure how new splits should be opened
+-- vim.opt.splitright = true
+-- vim.opt.splitbelow = true
+--
+-- -- Sets how neovim will display certain whitespace characters in the editor.
+-- --  See `:help 'list'`
+-- --  and `:help 'listchars'`
+-- vim.opt.list = true
+-- vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+--
+-- -- Preview substitutions live, as you type!
+-- vim.opt.inccommand = 'split'
+--
+-- -- Show which line your cursor is on
+-- vim.opt.cursorline = true
+--
+-- -- Minimal number of screen lines to keep above and below the cursor.
+-- vim.opt.scrolloff = 10
+--
+-- -- Set fold method to 'expr'
+-- vim.opt.foldmethod = 'expr'
+--
+-- -- Set fold expression using Treesitter
+-- vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+-- vim.opt.foldlevel = 99
+-- vim.opt.foldtext = ''
+--
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -162,74 +166,6 @@ require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
-  -- NOTE: Plugins can also be added by using a table,
-  -- with the first argument being the link and the following
-  -- keys can be used to configure plugin behavior/loading/etc.
-  --
-  -- Use `opts = {}` to force a plugin to be loaded.
-  --
-
-  { 'catppuccin/nvim', name = 'catppuccin', priority = 1000 },
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      -- vim.cmd.colorscheme 'catppuccin'
-      vim.cmd.colorscheme 'tokyonight-night'
-
-      -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
-    end,
-  },
-
-  -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
-
-  { -- Collection of various small independent plugins/modules
-    'echasnovski/mini.nvim',
-    config = function()
-      -- Better Around/Inside textobjects
-      --
-      -- Examples:
-      --  - va)  - [V]isually select [A]round [)]paren
-      --  - yinq - [Y]ank [I]nside [N]ext [Q]uote
-      --  - ci'  - [C]hange [I]nside [']quote
-      require('mini.ai').setup { n_lines = 500 }
-
-      -- Add/delete/replace surroundings (brackets, quotes, etc.)
-      --
-      -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-      -- - sd'   - [S]urround [D]elete [']quotes
-      -- - sr)'  - [S]urround [R]eplace [)] [']
-      require('mini.surround').setup()
-
-      -- Simple and easy statusline.
-      --  You could remove this setup call if you don't like it,
-      --  and try some other statusline plugin
-      local statusline = require 'mini.statusline'
-      -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = vim.g.have_nerd_font }
-
-      -- You can configure sections in the statusline by overriding their
-      -- default behavior. For example, here we set the section for
-      -- cursor location to LINE:COLUMN
-      ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        return '%2l:%-2v'
-      end
-
-      -- ... and there is more!
-      --  Check out: https://github.com/echasnovski/mini.nvim
-    end,
-  },
-
   require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
@@ -252,7 +188,7 @@ require('lazy').setup({
       source = '📄',
       start = '🚀',
       task = '📌',
-      lazy = '💤 ',
+      lazy = '💤',
     },
   },
 })

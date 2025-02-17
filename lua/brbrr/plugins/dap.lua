@@ -6,8 +6,8 @@ return {
       require('netcoredbg-macOS-arm64').setup(require 'dap')
 
       local dap = require 'dap'
-      -- print(dap.adapters)
-      print(require('dap').adapters['coreclr'])
+      -- -- print(dap.adapters)
+      -- print(require('dap').adapters['coreclr'])
     end,
   },
 
@@ -223,6 +223,7 @@ return {
       -- online, please don't ask me how to install them :)
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
+        'codelldb',
       },
     },
     -- mason-nvim-dap is loaded when nvim-dap loads

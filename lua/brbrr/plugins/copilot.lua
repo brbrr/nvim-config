@@ -1,6 +1,6 @@
 -- return {}
 return {
-  'github/copilot.vim',
+  -- 'github/copilot.vim',
   -- {
   --   'zbirenbaum/copilot.lua',
   --   cmd = 'Copilot',
@@ -33,9 +33,13 @@ return {
       { 'nvim-lua/plenary.nvim', branch = 'master' }, -- for curl, log and async functions
     },
     build = 'make tiktoken', -- Only on MacOS or Linux
-    opts = {
-      -- See Configuration section for options
-    },
+    opts = function()
+      vim.g.copilot_filetypes = { ['*'] = false }
+      return {
+        -- See Configuration section for options
+        chat_autocomplete = false,
+      }
+    end,
     keys = {
       { '<c-s>', '<CR>', ft = 'copilot-chat', desc = 'Submit Prompt', remap = true },
       { '<leader>a', '', desc = '+ai', mode = { 'n', 'v' } },

@@ -108,7 +108,7 @@ return {
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
-      { 'j-hui/fidget.nvim', opts = {} },
+      -- { 'j-hui/fidget.nvim', opts = {} },
 
       -- Allows extra capabilities provided by nvim-cmp
       -- 'hrsh7th/cmp-nvim-lsp',
@@ -279,7 +279,19 @@ return {
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
-        ts_ls = {},
+        ts_ls = {
+          filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+          init_options = {
+            plugins = {
+              {
+                name = '@vue/typescript-plugin',
+                location = vim.fn.stdpath 'data' .. '/mason/packages/vue-language-server/node_modules/@vue/language-server',
+                -- languages = { 'vue' },
+                languages = { 'javascript', 'typescript', 'vue' },
+              },
+            },
+          },
+        },
         --
         lua_ls = {
           -- cmd = {...},
@@ -319,6 +331,33 @@ return {
         --     },
         --   },
         -- },
+        -- },
+        volar = {},
+        -- LAZYVIM SETUP
+        -- volar = {
+        --   init_options = {
+        --     vue = {
+        --       hybridMode = true,
+        --     },
+        --   },
+        -- },
+        -- vtsls = {
+        --   filetypes = { 'vue' },
+        --   settings = {
+        --     vtsls = {
+        --       tsserver = {
+        --         globalPlugins = {
+        --           {
+        --             name = '@vue/typescript-plugin',
+        --             location = vim.fn.stdpath 'data' .. '/mason/packages/vue-language-server/node_modules/@vue/language-server',
+        --             languages = { 'vue' },
+        --             configNamespace = 'typescript',
+        --             enableForWorkspaceTypeScriptVersions = true,
+        --           },
+        --         },
+        --       },
+        --     },
+        --   },
         -- },
       }
 
