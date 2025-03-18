@@ -34,10 +34,13 @@ return {
     },
     build = 'make tiktoken', -- Only on MacOS or Linux
     opts = function()
+      -- NOTE: Disable copilot autocomplete
       vim.g.copilot_filetypes = { ['*'] = false }
       return {
         -- See Configuration section for options
         chat_autocomplete = false,
+        -- model = 'gpt-4o', -- Default model to use, see ':CopilotChatModels' for available models (can be specified manually in prompt via $).
+        model = 'claude-3.7-sonnet-thought',
       }
     end,
     keys = {
@@ -71,7 +74,7 @@ return {
         mode = { 'n', 'v' },
       },
       -- Show prompts actions with telescope
-      -- { "<leader>ap", M.pick("prompt"), desc = "Prompt Actions (CopilotChat)", mode = { "n", "v" } },
+      -- { '<leader>ap', M.pick 'prompt', desc = 'Prompt Actions (CopilotChat)', mode = { 'n', 'v' } },
     },
 
     -- See Commands section for default commands if you want to lazy load on them

@@ -139,6 +139,19 @@ function M.get_plugin(name)
 end
 
 ---@param name string
+---@param path string?
+function M.get_plugin_path(name, path)
+  local plugin = M.get_plugin(name)
+  path = path and '/' .. path or ''
+  return plugin and (plugin.dir .. path)
+end
+
+---@param plugin string
+function M.has(plugin)
+  return M.get_plugin(plugin) ~= nil
+end
+
+---@param name string
 function M.opts(name)
   local plugin = M.get_plugin(name)
   if not plugin then

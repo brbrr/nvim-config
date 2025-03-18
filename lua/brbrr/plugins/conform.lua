@@ -42,6 +42,13 @@ return { -- Autoformat
       c = { 'clang-format' },
       cmake = { 'cmake_format' },
       json = { 'prettierd', 'prettier', stop_after_first = true },
+      cs = { 'csharpier' },
+    },
+    formatters = {
+      csharpier = {
+        command = 'dotnet-csharpier',
+        args = { '--write-stdout' },
+      },
     },
   },
 }
