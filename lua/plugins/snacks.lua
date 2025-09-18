@@ -2,6 +2,7 @@ return {
   "folke/snacks.nvim",
   opts = {
     picker = {
+      ui_select = true,
       sources = {
         explorer = {
           hidden = true,
@@ -13,9 +14,9 @@ return {
           hidden = true,
         },
       },
-      layouts = {
-        default = {
-          width = 0.99,
+      formatters = {
+        file = {
+          truncate = 200,
         },
       },
     },
