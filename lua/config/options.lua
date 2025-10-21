@@ -12,7 +12,7 @@
 -- Default:
 -- vim.g.root_spec = { { ".git", "lua" }, "lsp", "cwd" }
 -- Modified:
-vim.g.root_spec = { "cwd", { ".git", "lua" }, "lsp" }
+-- vim.g.root_spec = { "cwd", { ".git", "lua" }, "lsp" }
 
 -- Set to "basedpyright" to use basedpyright instead of pyright.
-vim.g.lazyvim_python_lsp = "basedpyright"
+-- vim.g.lazyvim_python_lsp = "basedpyright"
