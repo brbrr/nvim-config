@@ -31,6 +31,7 @@ return {
         sources = {
           explorer = {
             hidden = true,
+            layout = { layout = { position = "right" } },
           },
           files = {
             hidden = true,
@@ -44,6 +45,16 @@ return {
             truncate = 400,
           },
         },
+        -- Extended layout
+        layouts = {
+          default = {
+            -- default
+            layout = {
+              width = 0.95,
+              height = 0.9,
+            },
+          },
+        },
       },
     },
   },
@@ -53,6 +64,28 @@ return {
     opts = {
       -- NOTE: Disable inlay hints by default
       inlay_hints = { enabled = false },
+      codelens = { enabled = true },
+      servers = {
+        gopls = {
+          settings = {
+            gopls = {
+              gc_details = true,
+              gofumpt = true,
+              codelenses = {
+                gc_details = true,
+                generate = true,
+                regenerate_cgo = true,
+                run_govulncheck = true,
+                test = true,
+                tidy = true,
+                upgrade_dependency = true,
+                vendor = true,
+              },
+              annotations = { bounds = true, escape = true, inline = true, ["nil"] = true },
+            },
+          },
+        },
+      },
     },
   },
 }
